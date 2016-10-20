@@ -1,0 +1,103 @@
+1. as a member:
+	 List & reverse() {
+			Node *tmp;
+			for(i=0; i<theSize; i++){
+				if(head == nullptr){
+					return *this
+				}
+				tmp = head->next;
+				head->next = head->next->prev;
+				head = tmp;
+				tail = head->next;
+			}
+		} 
+
+		as a non-member:
+		List & reverse( List && rhs) {
+			Node *tmp;
+			for(i=0; i<rhs.theSize; i++){
+				if(rhs.head == nullptr){
+					return rhs;
+				}
+				tmp = rhs.head->next;
+				rhs.head->next = rhs.head->next->prev;
+				rhs.head = tmp;
+				rhs.tail = rhs.head->next;
+			}
+		} 
+
+		I didn't use insert, and now I think I did it wrong and that this does not work. But assuming that it does work, the Big Oh is O(n) for the traversal of the list. Including the assignments, it is something like O(4n), but we aren't necessarily usually concerned with the constants. As for space I think this would not need much, just the space occupied by your linked list and the additional allocation for tmp. Also, I forgot to swap the prev pointers, oops.
+
+2. stack implementation:
+
+template <typename Object>
+class Stack
+{
+	public:
+		 explicit Stack (int initSize = 0){
+		   : new Vector(int initSize);
+		 }
+	
+		 ~Vector() {
+			 delete this; //does this work?
+		 }
+
+		 Stack & operator= (const Stack & rhs) {
+			 Stack copy = rhs;
+			 std::swap(*this, copy);
+			 return *this;
+		 }
+
+		 Stack & push(Object && obj){
+			 this.push_back(obj);
+		 }
+		 
+		 Object & pop(){
+			 Object ret = this[0];
+			 /*I'm running out of time but if I were approaching this
+ 				*how I currently am, I would need to shift everything up 
+			  *an index and decrease the size by one
+				*/
+			 return ret; //im not sure this is accurate.
+		 }
+
+		 Object & top() {
+		   return this[0];
+		 }
+		
+		 bool isEmpty() {
+			 return this.empty();
+		 }
+}
+
+countparens (char *str) {
+	int i = 0;
+  int cntlft;
+	int cntrht;
+	Stack stk = new Stack();
+	while (str[i] != null){
+	  if (str == '(' || str == ')') stk.push(str[i])
+		i++;
+	}
+	while (!stk.isEmpty()){
+		char popped = stk.pop();
+		if (popped == '(') cntlft++;
+		else cntrht++;
+	}
+	return cntrht == cntlft;
+}
+	
+3. merger:
+
+Queue & merger(Queue & lhs, Queue & rhs){
+	Queue ret = new Queue();
+	while(!lhs.isEmpty() || !rhs.isEmpty()) {
+		if (!lhs.isEmpty()) ret.enqueue(lhs.dequeue());
+		if (!rhs.isEmpty()) ret.enqueue(rhs.dequeue());
+	}
+	return ret;
+}
+
+so each enqueue to ret is O(n) to dequeue and O(n) to enqueue, that can be reduced to just O(n) I think. I am however doing this at most twice for the longest queue. So something like O(2n^2), coulde probably ignore the 2, and just go with O(n^2).
+
+4. This implementation would look similar to a linked list, however the last element would in fact point to the head. Enqueueing is as easy as inserting an element at the prev pointer of the head and next pointer of the current prev pointer of the head. Dequeueing is also fairly easy since you have constant access to the end of the queue which is the real advantage here. You would run a similar pointer swapping method as you would for enqueueing. 

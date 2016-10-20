@@ -1,0 +1,97 @@
+#include "BST_soln_b.h"
+#include <iostream>
+
+template <typename Object>
+class Set {
+	private:
+		BST<Object> * set;
+
+	public:
+		Set() : set(new BST<Object>()) {}
+
+		~Set() {
+			delete set;
+		}
+
+		bool empty() {
+			return set->empty();
+		}
+	
+		void insert(Object & val) {
+			set->insert(val);
+		}
+
+		void insert(Object & val) {
+			set->insert(val);
+		}
+		
+		bool contains(const Object & val) {
+			return set->find(val);
+		}
+
+		typename List<Object>::const_iterator begin() {
+			return set->begin();
+		}
+
+		typename List<Object>::const_iterator end() {
+			return set->end();
+		}
+
+		void remove(const Object & val) {
+			set->deleteNode(val);
+		} 
+
+		Set set_union(Set<Object> & vals) {
+			Set<Object> s = new Set<Object>();
+			List<Object>::const_iterator mitr = set->begin();
+			List<Object>::const_iterator vitr = s.begin();
+
+			while(mitr != set->end() || vitr != s.end()) {
+				if (mitr != set->end() && !set->contains(*mitr)){
+					s.insert(mitr);
+				}
+				if (vitr != vals.end() && !vals.contains(*vitr)){
+					s.insert(vitr);
+				}
+				mitr++;
+				vitr++;
+			}
+			
+			return s;	
+		}
+		
+		Set set_intersect(Set<Object> & vals) {
+			Set<Object> s = new Set<Object>();
+			List<Object>::const_iterator mitr = set->begin();
+			List<Object>::const_iterator vitr = s.begin();
+
+			while(mitr != set->end() || vitr != s.end()) {
+				if (mitr != set->end() && vals->contains(*mitr)){
+					s.insert(mitr);
+				}
+				if (vitr != vals->end() && set.contains(*vitr)){
+					s.insert(vitr);
+				}
+				mitr++;
+				vitr++;
+			}
+			
+			return s;	
+		}
+
+	  bool subset(Set & vals) const { 
+			List<Object>::const_iterator itr = vals->begin();
+			while(itr != vals->end()) {
+				if(!set.contains(*itr)) {
+					return 0;
+				}
+			}
+			return 1;
+		}
+		
+		bool operator==(Set & vals) {
+			List<Object>::const_iterator itr = vals->begin();
+			List<Object>::const_iterator itr2 = set->begin();
+		}
+};
+

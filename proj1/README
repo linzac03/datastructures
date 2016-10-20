@@ -1,0 +1,27 @@
+Run the Makefile with all of the files in the same directory, its not that fancy.
+
+Run the main test using ./schedtest
+
+You will be prompted for an integer number for number of processors
+
+Status is printed out every tick
+
+Jobs are entered as:
+	# name nprocs nticks
+	
+	name: is the job name, used in queue status
+	nprocs: number of processers needed (int)
+	ntick: number of ticks needed (int)
+
+Enter exit to quit
+
+
+I'm not a huge fan of I have this implemented. It isn't as general as I want.
+The base structure is the binary heap from the heap lab. I made some modifications for my Job class.
+In that way I am not a fan of the implementation. 
+The Scheduler makes use of two of these heaps, one as a waiting priority queue and one for the running queue.
+The processor pool is kept as an int for simplicity.
+When the processors are available, a job in the wait queue is moved to the run queue and 'executes' for N ticks.
+I was experiencing a bug where empty queues still printed out multiples of the same job name, but the processors would
+still be released leading me to believe it has to do with my implementation of the binary heap and how deleteMin is working,
+or how I'm using it.

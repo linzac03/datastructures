@@ -1,0 +1,53 @@
+1. a. 5 () ()
+			5 (1 () ()) ()
+			5 (1 () ()) (9 () ())
+			5 (1 () ()) (9 (6 () ()) ())
+			5 (1 () (4 () ())) (9 (6 () ()) ())
+			5 (1 () (4 () ())) (9 (6 () (7 () ())) ())
+			5 (1 () (4 (3 () ()) ())) (9 (6 () (7 () ())) ())
+			5 (1 () (4 (3 () ()) ())) (9 (6 () (7 () (8 () ()))) ())
+
+	 b.	5 (1 () (4 (3 () ()) ())) (9 (8 (7 () ()) ()) ())
+	   	9 (1 () (4 (3 () ()) ())) (8 (7 () ()) ())
+		
+
+2. inorder: BCAFEDIHGJ
+	 preorder: ABCDEFGHIJ
+	 This is too tricky and my stomach hurts.
+
+3. zip.cpp
+
+4. This calculates the height of the tree I believe. 
+	 To call this from a main function you'd use the syntax: list.f() 	
+
+5.I put this in the BST.h as well 
+	bool operator== (const BST<Object> & t) {
+		List<Object> l1 = inorder();
+		List<Object> l2 = t.inorder();
+		List<Object>::iterator itr1 = l1.begin();
+		List<Object>::iterator itr2 = l2.begin();
+		// do these lists have ==?? return l1 == l2?
+		if (l1.size() != l2.size()) {
+			return false;
+		}	
+		while (itr1 != l1.end() && itr2 != l2.end()) {
+			if (*itr1 != *itr2) return false;
+			itr1++;
+			itr2++;
+		}
+		return true;				
+	}
+
+6. public:
+		int heightDiff () {
+			return heightDiff(root); 
+		} 
+
+	 private:	
+		int heightDiff(BSTNode *cur) {
+			if (cur == NULL) return 0;
+			int LeftHt = recHt(cur->left);
+			int RightHt = rechHt(cur->right);
+			return abs(LeftHt - RightHt);
+		}
+			

@@ -1,0 +1,7 @@
+Design a data structure that supports push, pop, top, isEmpty (ie the typical Stack interface). In addition, you should also support getMin, which returns, but does not delete the minimum value. All your methods must be O(1).
+
+    Give a detailed design
+    Prove all methods are O(1) and prove they are all correct. In particular, prove that getMin will always return the minimum.
+    Implement (you will be using already implemented data structures for this )
+    Test
+

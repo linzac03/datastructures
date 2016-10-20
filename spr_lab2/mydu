@@ -1,0 +1,12 @@
+syscalls to use:
+opendir
+readdir
+stat
+
+lib:
+strncpy
+strncmp
+
+datastructs:
+stack
+queue

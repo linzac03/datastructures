@@ -1,0 +1,108 @@
+5: 5.1, 5.2, 5.8, 5.11, 5.17, 5.19
+5: 5.1, 5.2, 5.10, 5.13, 5.20., 5.27
+
+5.1) Given input {4371, 1323, 6173, 4199, 4344, 9679, 1989} and a hash function
+h(x) = x (mod () 10), show the resulting
+a. separate chaining hash table
+	0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9
+	     | 4371 |      | 1323 | 4344 |      |      |      |      | 4199
+       |      |      | 6173 |      |      |      |      |      | 9679
+       |      |      |      |      |      |      |      |      | 1989
+ 
+b. hash table using linear probing
+	0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9
+	9679 | 4371 | 1989 | 1323 | 6173 | 4344 |      |      |      | 4199
+       |      |      |      |      |      |      |      |      | 
+       |      |      |      |      |      |      |      |      | 
+
+c. hash table using quadratic probing
+	0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9
+	9679 | 4371 |      | 1323 | 6173 | 4344 |      |      | 1989 | 4199
+       |      |      |      |      |      |      |      |      | 
+       |      |      |      |      |      |      |      |      | 
+
+d. hash table with second hash function h 2 (x) = 7 − (x mod 7)
+	0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9
+       | 4371 | 9679 | 1323 | 6173 | 4344 | 1989 |      |      | 4199
+       |      |      |      |      |      |      |      |      | 
+       |      |      |      |      |      |      |      |      | 
+
+5.2) Make table twice as big, re-insert elements.
+
+5.8) Cubic probing should provide better fragmentation for collisions.
+
+5.10) Chaining - Easy to implement, intuitive behavior, requires more space and encourages clustering
+			Linear probing - Requires less space than chaining, encourages clustering
+			Quadratic probing - The bigger the table gets the better the collision avoidance, clustering is minimal, likely to rehash more often
+			to maintain performance.  
+
+5.11) This method involves generating a pseudo-random hash value. However, the seed 
+			you give to the generator is your original hash of x. 
+			
+			f(i) = i · r(hash(x))
+			r(y) = |48271y( mod (2 31 − 1))| mod TableSize
+			
+			This random distribution of hashes is less likely to fill up neighboring cells.
+			This is where linear and quadratic probing fall short in providing available
+			cells by checking neighboring cells, where as this collision resolution could 
+			assign a cell with much more distance between the collision and final position
+			of the inserted element. 
+
+5.13) a. Poly mult(Poly & p1, Poly & p2) {
+           Poly<Term>::iterator st1 = p1.begin();
+           Poly<Term>::iterator st2 = p2.begin();
+           for (; st1!=p1.end(); st1++) {
+             for (; st2!=p2.end(); st2++) {
+               p2.insert(*st1 *  *st2);
+             }
+           }
+           // sort p2 here //
+           return p2;
+         } 
+				 
+         void Poly::insert(Term & t) {
+           if (this->contains(t)) {
+             this->combine(t); // combine into like term
+           } else {
+             this->append(t); // append t to end of polynomial (sorts at end of mult)
+           }
+         }
+
+      b. The program described in the program would combine terms while sorting a list of all products of each multiplication, 
+         (p1.length * p2.length). While the latter will have to only sort a p2.length list. That is best case O(MN log MN) reduced 
+         to O(N+M log N+M) for the sort. The insert could be worst case O(N) due to the call to contains. However, combine and append 
+         should be constant. So, O(NMN + (N+M log N+M)), or probably better expressed O(N^2 + (N log N)).
+         
+
+5.20) template <typename HashedObj, typename Object>
+      class Pair {
+        HashedObj key;
+        Object def;
+        // Appropriate Constructors, etc.
+      };
+      
+      template <typename HashedObj, typename Object>
+      class Dictionary {
+        public:
+          Dictionary( ) : size{0} {};
+          void insert( const HashedObj & key, const Object & definition ) {
+            size++;
+            items[hash(key)] = definition;
+          }
+          const Object & lookup( const HashedObj & key ) const {
+						return items[hash(key)];
+					}
+          bool isEmpty( ) const {
+            return size == 0;
+          }
+          void makeEmpty( ) {
+            size = 0;
+            items.makeEmpty(); 
+          }
+        private:
+          HashTable<Pair<HashedObj,Object>> items;
+          int size;
+      }; 
+
+5.27)
+

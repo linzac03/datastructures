@@ -1,0 +1,12 @@
+1. I can't open the file?
+
+2. Regarding memory bottlenecks in suffix tree construction:
+		The "block streaming model" they use takes advantage of paging techniques used by virtual memory. A disk access machine is set up such
+		that it contains an arbitrarily large disk broken into block, these blocks are known as disk pages. The disk access machine also contains
+		a processor and internal memory of size M. Each disk page contains B items, and is no larger than M/2. When a page is moved to the 
+		internal memory this is referred to as an I/O. On disk access, a single page is swapped into internal memory, this is a single I/O.
+		In conclusion, the paper closes with that optimally sorting at O( (n/DB) logM/B (n/M) ), we are able to optimally construct the suffix
+		tree of S in a PDAM model in the same O amount of I/Os. The largest bottleneck coming from RAM to DAM was the sorting, and dealing with
+		memory on disk as opposed to ram. An exploit is used as well, that is that contiguous page access tends to perform better than random 
+		page access. They also show that we are able to achieve O(n log n) time constructing the suffix tree on a PDAM model, which of course is 
+		the best we are able to do for sorting.    

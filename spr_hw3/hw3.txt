@@ -1,0 +1,39 @@
+9.3) Write a program to perform a topological sort on a graph.
+ 
+9.9) Write a program to solve the single-source shortest-path problem.
+
+9.15) a. Find a minimum spanning tree for the graph in Figure 9.84 
+         using both Prim’s and Kruskal’s algorithms.
+      
+      b. Is this minimum spanning tree unique? Why?
+         
+9.16) Does either Prim’s or Kruskal’s algorithm work if there are 
+      negative edge weights? 
+
+9.32) a. Write a program to find an Euler circuit in a graph if one 
+         exists.
+      
+      b. Write a program to find an Euler tour in a graph if one 
+         exists.
+
+9.46) Section 8.7 described the generating of mazes. Suppose we want 
+      to output the path in the maze. Assume that the maze is 
+      represented as a matrix; each cell in the matrix stores 
+      information about what walls are present (or absent).
+
+      a. Write a program that computes enough information to output a 
+         path in the maze. Give output in the form SEN...
+         (representing go south, then east, then north, etc.).
+
+      b. If you are using a C++ compiler with a windowing package, 
+         write a program that draws the maze and, at the press of a 
+         button, draws the path.
+
+9.54) The clique problem can be stated as follows: Given an 
+      undirected graph, G = (V, E), and an integer, K, does G contain 
+      a complete subgraph of at least K vertices? The vertex cover 
+      problem can be stated as follows: Given an undirected graph,
+      G = (V, E), and an integer, K, does G contain a subset V ⊂ V 
+      such that |V| ≤ K and every edge in G has a vertex in V ? Show 
+      that the clique problem is polynomially reducible to vertex 
+      cover.

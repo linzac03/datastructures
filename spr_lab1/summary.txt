@@ -1,0 +1,40 @@
+1. adversary for [1,7,8,3,6,4]
+	1 < 7 : A = 7
+					B = 1
+
+	8 > 3 : u = 8
+					v = 3
+					A = 8
+					B = 1
+
+	6 > 4 : u = 6
+					v = 4
+					A = 8
+					B = 1
+	
+	Max = A = 8
+	Min = B = 1
+
+2. (7.53, 7.54, 7.55) 
+	7.53: We are given an array that contains N numbers. We want to determine if there are two numbers whose sum equals a given number K. For instance, if the input is 8, 4, 1, 6, and K is 10, then the answer is yes (4 and 6). A number may be used twice.
+Do the following:
+	a. Give an O(N^2) algorithm to solve this problem.
+		For every item in the array, check with all elements in the array 
+		for the desired property (item1 + item2 == K), repeat with the
+		next item. Although, the pair will be found in the first pass
+		if it exists.
+	b. Give an O(N log N) algorithm to solve this problem. (Hint: Sort the items first.
+		Given a sorted list, start with a pointer to the beginning of the
+		list and a pointer to the end. Check the property, if it is false
+		increment the pointer in the beginning until it is true or if 
+		it becomes greater than K decrement the end pointer.
+	After that is done, you can solve the problem in linear time.)
+	c. Code both solutions and compare the running times of your algorithms. 
+
+	7.54: Repeat Exercise 7.53 for four numbers. Try to design an O(N^2 log N) algorithm. (Hint: Compute all possible sums of two elements. Sort these possible sums. Then proceed as in Exercise 7.53.)
+		Compute all possible sums of two elements (doubles allowed), 
+		for each item in the list compute its sums of two elements in the
+		list and then pop it from the list, repeat until the list is 
+		empty.  
+
+3. (7.25, 7.26)

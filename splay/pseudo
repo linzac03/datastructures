@@ -1,0 +1,75 @@
+
+template <typename Object>
+class SplayTree {
+	private:
+		struct TreeNode{
+			Object data;
+			TreeNode * left;	
+			TreeNode * right;
+			TreeNode * parent;
+			TreeNode (const Object & n, TreeNode * p) : data(n), left(NULL), right(NULL), parent(p) {}	
+		};
+		TreeNode * root;
+
+	public:
+		BST() : root(NULL) {}
+		
+		~BST() {
+			delete root;
+		}
+	
+	private:
+		access(Object & i, TreeNode & t) {
+			if (i != t.data) {
+				if (i < t.data && t->left != NULL) {
+					return access(i, t->left);
+				} else if (t->right != NULL){
+					return access(i, t->right);
+				} else {
+					return access(i, t->parent);
+				} 	
+			} else {
+				splay(i, t);
+				return t;
+			}	
+		}
+
+		join(TreeNode & t2) {
+			findMax(root);
+			insert(t2);	
+		}
+
+		split(Object & i, TreeNode & t){
+			access(i, t);
+		}
+
+		insert(Object & i, TreeNode & t) {
+			if (t == NULL) {
+				t = new TreeNode(i, NULL);
+				return root;
+			}
+			if (i < t->data && t->left == NULL) {
+				t->left = new TreeNode(i, t);
+				return root;
+			} else if (i > t->data && t->right == NULL) {
+				t->right = new TreeNode(i, t);
+				return root;
+			}
+			if (i < t->data) {
+				return insert(i, t->left);
+			}
+			return insert(i, t->right);
+		}
+
+		remove(Element i, Tree t):
+
+		findMax(TreeNode & t) {
+			if (t->right != NULL) {
+				return findMax(t->right);
+			} 
+			splay(t->data, root);
+			return t->data;
+		}
+
+		splay(Element x, Tree t):
+}

@@ -1,0 +1,3 @@
+int a;
+ng_thangs() {
+lly";

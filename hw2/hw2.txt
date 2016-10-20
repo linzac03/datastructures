@@ -1,0 +1,52 @@
+2.1) 37, 2/N, N log log N, N log N, N log N^2, N^2 log N, sqrt(N), N, 2^N/2, 2^N, N^3 
+
+2.2) a. false
+		 b. false
+		 c. true
+		 d. false
+
+2.3) N^( 1+E / sqrt( log N )  ), for E > 0, I'm not sure how to show it in this format.
+
+2.7) 1. a. O(n)
+			  b. 0.018s
+				c. fairly staright forward, you'll have n-1 true comparisons with 
+					 one failing and exiting the loop after n iterations.
+
+		 2. a. O(n^2)
+				b. 0.024s
+				c. worst case is that you'll have n iterations, n times. so, n^2.
+
+		 3. a. O(n^3) 
+				b. 0.171s
+				c. significantly longer than the previous tests, which makes sense
+					 since it is now doing n^2 iterations, n times. so, n^3.
+
+		 4. a. O(n^2) I think...i don't really know
+				b. 0.021s
+				c. this test was somewhere between the first and second which were
+					 O(n) and O(n^2) respectively. 
+		 I'm over it.
+
+2.14) a. x=3, f(x) = 4x^4 + 8x^3 + x + 2
+							(3 * 0 + 4) = 4
+							(3 * 4 + 8) = 20
+							(3 * 20 + 0) = 60
+							(3 * 60 + 1) = 181
+							(3 * 181 + 2) = 543 + 2 = 545
+			b. Horner's rule utilizes the standard form of polynomials 
+				 AiX^i + A(i-1)X^(i-1) + A(i-2)X^(i-2) + ... + A(i-n)X^(i-n) 
+				 so even if the terms are not shown in the expression, while 
+				 evaluating you're still multiplying by 3 the correct amount of 
+				 times.
+			c. O(n+1), but really all we care about is O(n).
+							 
+2.15) for (i=n, i >= 0, i++)
+				if (arr[i] > x) return false; //not in array 
+				else (arr[i] == x) return true;
+			O(n), worst case your x is at the beginning of the array.
+
+2.26) 
+
+2.28)
+
+2.31)

@@ -1,0 +1,23 @@
+1.7) a. log X < X for all X > 0
+				Supposing log base 2,
+				Base: log 1 < 1
+									0 < 1
+				Suppose for some X > 0, log X >= X, we'll call this X, Y.  
+				Then log Y >= Y, however 2^Y <= Y is clearly not true.
+				By contradiction log X < X for all X > 0
+
+			b. Prove that: log A^B = B (log A)
+				 let C = log A
+						 2^C = A
+						 (2^C)^B = A^B <--- Bring in B
+						 2^CB = A^B
+						 log 2^CB = log A^B
+						 CB = log A^B
+						 B (log A) = log A^B
+
+
+1.8) skipped for on paper i suppose
+
+1.12) also skipped for on paper 
+				  
+						  

@@ -1,0 +1,76 @@
+1. 20 points)
+
+(a)  Give an algorithm to sort 5 items with 7 comparisons.
+   [5,2,3,4,3] 
+    ^   ^ 
+     5 < 3 = false | 1
+
+   [3,2,5,4,3] 
+      ^   ^ 
+     2 < 4 = true | 2
+	 
+   [3,2,5,4,3] 
+        ^   ^ 
+     5 < 3 = false | 3
+
+   [3,2,3,4,5] 
+    ^ ^ 
+    3 < 2 = false | 4
+ 
+   [2,3,3,4,5] 
+      ^ ^ 
+    3 < 3 = false | 5
+		
+   [2,3,3,4,5] 
+        ^ ^ 
+    3 < 4 = true | 6
+
+   [2,3,3,4,5] 
+          ^ ^ 
+    4 < 5 = true | 7
+
+   Worst case, the list is in reverse order and you do another series of comparisons just to sort the front two items.
+
+(b)  Prove 7 comparisons are required.
+   Say that we have an unsorted list with 5 elements.
+   We can start by sorting elements in positions (1,3), (2,4), (3,5).
+   So we have now touched each element once, however we can't say that they are sorted, since (1,2), (2,3), (3,4), and (4,5)
+   have not been compared. Clearly, these seven distinct pairs are the total number of comparisons needed to shift the elements
+   into order. This is because we have exhausted the amount of comparisons that can be done on 5 elements with out repeating ourselves.
+   This can be seen above using 2 as an example, we never compare 2 and 5, however, we certainly compare 2 and 3, of which 3 was 
+   previously compared to 5. Thus, it would be redundant to again confirm that 2 was less than 5.
+
+2. 20 points) Suppose we implement partial path compression on find(i) by making every other node on the path 
+by making every other node on the path from i to the root link to its grandparent (where this makes sense:
+if there is no grandparent obviously you can't.).  Design a procedure to do this.  (Hint: this is easier to do iteratively.)
+	int m = 0;
+	while (s[x] > 0) {
+		if (m % 2) {
+			s[x] = find(s[x])
+		} else {
+			find(s[x]) // <-- I'm actually not sure what to do here, is this even necessary?
+		}
+		m++;
+	}
+	return x;
+
+3. (20 points) Find the shortest path from A to all other vertices for the graph in Figure 9.82 (from the textbook).
+	AC = 3
+  AB = 5
+  ABGE = 7
+  ABGEF = 8
+  ABGED = 9	
+
+4. (20 points) Give an example where Dijkstra's algorithm gives the wrong answer in the
+presence of a negative edge but no negative cost cycle.
+	Nodes = {A,B,C,D,E}
+  Edges = {(A,B,1), (A,D,3), (B,D,-1), (B,C,2), (D,C,10), (C,E,1)}
+  Djikstra A->E: ABDCE = 11
+  Shortest Path: ABCE	= 4
+
+5.  (20 points) For the graph in Figure 1, find a minimum spanning tree using:
+(a)  Prim's algorithm
+	(1,3), (1,4), (3,2), (2,5), (4,6)
+(b)  Kruskal's algorithm
+	(1,3), (4,6), (2,5), (3,2), (1,4)
+	

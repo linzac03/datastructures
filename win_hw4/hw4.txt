@@ -1,0 +1,319 @@
+Ch 7: 7.10, 7.11, 7.19, 7.20, [7.20], 7.36, 7.40, 7.48, 7.55.
+
+7.10) Do either of the following modifications to the Shellsort routine coded in Figure 7.6
+affect the worst-case running time?
+/**
+* Shellsort, using Shell’s (poor) increments.
+*/
+1 template <typename Comparable>
+2 void shellsort( vector<Comparable> & a ) {
+3 	for( int gap = a.size( ) / 2; gap > 0; gap /= 2 )
+4 		for( int i = gap; i < a.size( ); ++i ) {
+5 			Comparable tmp = std::move( a[ i ] );
+6 			int j = i;
+7 			for( ; j >= gap && tmp < a[ j - gap ]; j -= gap )
+8 			  a[ j ] = std::move( a[ j - gap ] );
+9 			a[ j ] = std::move( tmp );
+10		}
+11 }
+a. Before line 8, subtract one from gap if it is even.
+
+b. Before line 8, add one to gap if it is even.
+
+  Adding 1 to gap will strictly result in less executions of line 8.
+  Given that it still sorts a given list, this should help the running time.
+  Otherwise, subtracting one results in more executions of line 8. 
+
+7.11) Show how heapsort processes the input 142, 543, 123, 65, 453, 879, 572, 434,
+111, 242, 811, 102.
+			
+                      142             [142, 543, 123, 65, 453, 879, 572, 434, 111, 242, 811, 102]
+                   /       \
+              543             123
+           /       \       /       \
+         65        453   879       572
+        /  \      /  \    /    
+      434  111  242  811 102  
+      
+                      142             [142, 543, 123, 65, 453, 102, 572, 434, 111, 242, 811, 879]
+                   /       \
+              543             123
+           /       \       /       \
+         65        453   102       572
+        /  \      /  \    /    
+      434  111  242  811 879  
+      
+                      142             [142, 543, 123, 65, 242, 102, 572, 434, 111, 453, 811, 879]
+                   /       \
+              543             123
+           /       \       /       \
+         65        242   102       572
+        /  \      /  \    /    
+      434  111  453  811 879  
+      
+                      142             [142, 65, 123, 543, 242, 102, 572, 434, 111, 453, 811, 879]
+                   /       \
+              65             123
+           /       \       /       \
+         543       242   102       572
+        /  \      /  \    /    
+      434  111  453  811 879  
+      
+                      65             [65, 111, 102, 142, 242, 123, 572, 434, 543, 453, 811, 879]
+                   /       \
+              111             102
+           /       \       /       \
+         142       242   123       572
+        /  \      /  \    /    
+      434  543  453  811 879  
+
+                      879             [879, 111, 102, 142, 242, 123, 572, 434, 543, 453, 811] -> [65]
+                   /       \
+              111             102
+           /       \       /       \
+         142       242   123       572
+        /  \      /  \        
+      434  543  453  811   
+
+                      102             [102, 111, 879, 142, 242, 123, 572, 434, 543, 453, 811] -> [65]
+                   /       \
+              111             879
+           /       \       /       \
+         142       242   123       572
+        /  \      /  \        
+      434  543  453  811   
+
+                      102             [102, 111, 123, 142, 242, 879, 572, 434, 543, 453, 811] -> [65]
+                   /       \
+              111             123
+           /       \       /       \
+         142       242   879       572
+        /  \      /  \        
+      434  543  453  811   
+
+                      811            [811, 111, 123, 142, 242, 879, 572, 434, 543, 453] -> [65, 102]
+                   /       \
+              111             123
+           /       \       /       \
+         142       242   879       572
+        /  \      /          
+      434  543  453    
+
+                      111            [111, 811, 123, 142, 242, 879, 572, 434, 543, 453] -> [65, 102]
+                   /       \
+              811             123
+           /       \       /       \
+         142       242   879       572
+        /  \      /          
+      434  543  453    
+
+                      111            [111, 142, 123, 811, 242, 879, 572, 434, 543, 453] -> [65, 102]
+                   /       \
+              142             123
+           /       \       /       \
+         811       242   879       572
+        /  \      /          
+      434  543  453    
+
+                      111            [111, 142, 123, 434, 242, 879, 572, 811, 543, 453] -> [65, 102]
+                   /       \
+              142             123
+           /       \       /       \
+         434       242   879       572
+        /  \      /          
+      811  543  453    
+
+                      453            [453, 142, 123, 434, 242, 879, 572, 811, 543] -> [65, 102, 111]
+                   /       \
+              142             123
+           /       \       /       \
+         434       242   879       572
+        /  \                
+      811  543      
+
+                      123            [123, 142, 453, 434, 242, 879, 572, 811, 543] -> [65, 102, 111]
+                   /       \
+              142             453
+           /       \       /       \
+         434       242   879       572
+        /  \                
+      811  543      
+
+  
+                      543           [543, 142, 453, 434, 242, 879, 572, 811] -> [65, 102, 111, 123]
+                   /       \
+              142             453
+           /       \       /       \
+         434       242   879       572
+        /                  
+      811        
+  
+                      142           [142, 543, 453, 434, 242, 879, 572, 811] -> [65, 102, 111, 123]
+                   /       \
+              543             453
+           /       \       /       \
+         434       242   879       572
+        /                  
+      811        
+          
+                      142           [142, 242, 453, 434, 543, 879, 572, 811] -> [65, 102, 111, 123]
+                   /       \
+              242             453
+           /       \       /       \
+         434       543   879       572
+        /                  
+      811        
+
+                      811           [811, 242, 453, 434, 543, 879, 572] -> [65, 102, 111, 123, 142]
+                   /       \
+              242             453
+           /       \       /       \
+         434       543   879       572        
+
+                      242           [242, 811, 453, 434, 543, 879, 572] -> [65, 102, 111, 123, 142]
+                   /       \
+              811             453
+           /       \       /       \
+         434       543   879       572        
+
+                      242           [242, 434, 453, 811, 543, 879, 572] -> [65, 102, 111, 123, 142]
+                   /       \
+              434             453
+           /       \       /       \
+         811       543   879       572        
+
+                      572           [572, 434, 453, 811, 543, 879] -> [65, 102, 111, 123, 142, 242]
+                   /       \
+              434           453
+           /       \       /    
+         811       543   879            
+
+                      434           [434, 572, 453, 811, 543, 879] -> [65, 102, 111, 123, 142, 242]
+                   /       \
+              572           453
+           /       \       /    
+         811       543   879            
+
+                      434           [434, 543, 453, 811, 572, 879] -> [65, 102, 111, 123, 142, 242]
+                   /       \
+              543           453
+           /       \       /    
+         811       572   879            
+
+                      879           [879, 543, 453, 811, 572] -> [65, 102, 111, 123, 142, 242, 434]
+                   /       \
+              543           453
+           /       \          
+         811       572               
+
+                      453           [453, 543, 879, 811, 572] -> [65, 102, 111, 123, 142, 242, 434]
+                   /       \
+              543           879
+           /       \          
+         811       572               
+
+                      572           [572, 543, 879, 811] -> [65, 102, 111, 123, 142, 242, 434, 453]
+                   /       \
+              543           879
+           /                 
+         811                      
+
+                      543           [543, 572, 879, 811] -> [65, 102, 111, 123, 142, 242, 434, 453]
+                   /       \
+              572           879
+           /                 
+         811                      
+
+                      572           [572, 811, 879] -> [65, 102, 111, 123, 142, 242, 434, 453, 543]
+                   /       \
+              811           879                      
+
+                                 [811, 879] -> [65, 102, 111, 123, 142, 242, 434, 453, 543, 572]
+                   /       \
+              811           879                      
+                        ......
+                        ......
+                        ......
+                              [65, 102, 111, 123, 142, 242, 434, 453, 543, 572, 811, 879]
+
+7.19) Sort 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 using quicksort with median-of-three partitioning
+and a cutoff of 3. 
+         0 1 2 3 4 5 6 7 8 9 10
+	arr = [3,1,4,1,5,9,2,6,5,3,5], left = 0, right = 10
+ 
+  left + 3 <= right - true
+   
+  left + right / 2 = 5
+ 
+  arr[left] = 3     9 < 3
+  arr[5]    = 9     5 < 3
+  arr[right]= 5     5 < 9 - swap
+
+	arr = [3,1,4,1,5,5,2,6,5,3,9], left = 0, right = 10
+ 
+  swap arr[5] arr[right-1]
+
+	arr = [3,1,4,1,5,3,2,6,5,5,9], left = 0, right = 10
+
+  pivot = arr[right - 1] = 5
+
+	arr = [3,1,4,1,5,3,2,6,5,5,9], left = 0, right = 10, i = 5, j = 7
+                   ^   ^  
+
+	arr = [3,1,4,1,5,3,2,6,5,5,9], left = 0, right = 10, i = 5, j = 7
+                   ^   ^  
+	quicksort(a, left, i - 1)
+  0+3 <= 3 - true
+	[3,1,4,1,5]
+  pivot = 4
+	[3,1,1,4,5]     
+	[3,1,1,4,5]
+	[1,1,3,4,5]
+
+  quicksort(a, i + 1, right)
+  6 + 3 <= 10
+  [2,6,5,5,9]
+  [2,5,5,6,9]
+
+  [1,1,3,4,5,3,2,5,5,6,9]
+
+  I kind of get the idea, but I don't want to finish it. 
+  
+
+7.20) Using the quicksort implementation in this chapter, determine the running time of
+quicksort for
+a. sorted input   
+b. reverse-ordered input 
+c. random input
+
+7.36) Prove that merging two sorted arrays of N items requires at least 2N − 1 compar-
+isons. You must show that if two elements in the merged list are consecutive and
+from different lists, then they must be compared.
+
+      L1 contains N items and L2 contains N items, L3 is empty
+
+      The 0th element of L1 and L2 are initially compared
+      The least 0th element is popped off of L1 and inserted into L3
+      L1 now contains N-1 items while L2 contains N items
+
+      If the next element is popped from L2 it is consecutive to the last item inserted into L3, 
+      otherwise it is trivially consecutive since L1 is sorted. This is because every consecutive element
+      must be compared prior to existing in L3. Certainly if J is an element of L1 and K is an element of L2
+      and J < K, K will be inserted to L3 after J.
+
+      Best case, all elements of L1 are greater than all elements of L2, this means N comparisons for the insertion of L1 into L3.
+      Now, with nothing else to compare to L2 is appended to the end of L3, no comparisons needed. 
+      Remember after the initial comparison one list has N-1 length and the other has N length. Worst case, 2N comparisons are made
+      if every element is compared twice before being inserted, but with one left over element there is no need for comparison, 
+      therefore 2N-1.
+
+      So informal. 
+
+7.40) a) N-1 comparisons are made if N is a power of 2
+      b) N = 3 * 2^k, N1 = 3 and N2 = 2^k, N1 does 2 comparisons, N2 does 2^k-1 + 2^k-2...+2^0 comparisons. N1xN2 = 2(2^k-1 + 2^k-2...+2^0)
+         comparisons.
+      c) 
+
+7.48)
+
+7.55) 
